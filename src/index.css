@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm-gray surface family, forest-green primary, amber emphasis */
+    --surface: 245 244 242;          /* #F5F4F2 */
+    --surface-elevated: 255 255 255;
+    --ink: 36 36 36;                 /* #242424 */
+    --ink-muted: 96 94 92;           /* #605E5C — 5.1:1 on surface */
+    --brand: 27 67 50;               /* #1B4332 */
+    --brand-hover: 20 52 38;
+    --brand-soft: 226 234 228;
+    --emphasis: 138 62 5;            /* #8A3E05 — 5.2:1 on surface (darker for text) */
+    --danger: 155 44 44;             /* #9B2C2C */
+    --line: 220 216 210;             /* #DCD8D2 */
+    --focus: 27 67 50;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-surface text-ink font-sans antialiased;
+    font-feature-settings: 'kern', 'liga';
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--focus));
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  h1, h2, h3 {
+    @apply font-serif;
+  }
+
+  /* Motion respect */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Skip link */
+  .skip-link {
+    @apply absolute left-2 top-2 z-[100] -translate-y-20 rounded-control bg-brand px-4 py-2 text-white;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .container-content {
+    @apply mx-auto w-full max-w-content px-4 sm:px-6 lg:px-8;
+  }
+  .label {
+    @apply block text-sm font-medium text-ink;
+  }
+  .hint {
+    @apply text-xs text-ink-muted;
+  }
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--line)) transparent;
+}
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgb(var(--line));
+  border-radius: 4px;
+}
+
+/* Line clamp fallbacks for older engines */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
